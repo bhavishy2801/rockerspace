@@ -136,7 +136,7 @@ const overallStats = computed(() => {
 
 <template>
   <div class="content-block">
-    <h1>◢◤ TECHNICAL MATRIX ◢◤</h1>
+    <h1>> decode_skills.sh</h1>
     
     <!-- Overall Stats -->
     <div class="stats-overview">

@@ -13,7 +13,7 @@ const submitStatus = ref('');
 const contactChannels = [
   {
     id: 'email',
-    name: 'SECURE_MAIL',
+    name: 'GMAIL',
     value: 'bhavishyrocker2801@gmail.com',
     url: 'mailto:bhavishyrocker2801@gmail.com',
     icon: '📧',
@@ -21,7 +21,7 @@ const contactChannels = [
   },
   {
     id: 'github',
-    name: 'CODE_REPOSITORY',
+    name: 'GITHUB',
     value: 'github.com/bhavishy2801',
     url: 'https://github.com/bhavishy2801',
     icon: '🔗',
@@ -29,7 +29,7 @@ const contactChannels = [
   },
   {
     id: 'linkedin',
-    name: 'PROFESSIONAL_NET',
+    name: 'LINKEDIN',
     value: 'linkedin.com/in/bhavishy2801',
     url: 'https://www.linkedin.com/in/bhavishy2801/',
     icon: '💼',
@@ -37,9 +37,9 @@ const contactChannels = [
   },
   {
     id: 'resume',
-    name: 'CREDENTIALS',
+    name: 'RESUME',
     value: 'Download Resume',
-    url: 'https://bhavishyagrawal.vercel.app/resume.pdf',
+    url: 'https://drive.google.com/file/d/1oQTJAIJr8HcoY_ZZSJf4V-BcGVaWnz4p/view',
     icon: '📄',
     status: 'ACTIVE'
   }
@@ -69,7 +69,7 @@ const handleSubmit = async () => {
 
 <template>
   <div class="content-block">
-    <h1>◢◤ COMMUNICATION PROTOCOLS ◢◤</h1>
+    <h1>> ./init_handshake.sh</h1>
     
     <div class="communication-grid">
       <!-- Contact Channels -->
