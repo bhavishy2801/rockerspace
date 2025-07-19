@@ -9,18 +9,26 @@ const props = defineProps({
 const emit = defineEmits(['navigate']);
 
 const currentTime = ref(new Date());
+const isMenuOpen = ref(false); // Add this for hamburger menu
 
 const navigateToSection = (sectionId) => {
-  console.log('Nav clicked:', sectionId); // Debug log
+  console.log('Nav clicked:', sectionId);
   emit('navigate', sectionId);
+  isMenuOpen.value = false; // Close menu after navigation
 };
 
 const navigateToHome = () => {
   emit('navigate', 'about');
+  isMenuOpen.value = false; // Close menu after navigation
 };
 
 const downloadResume = () => {
   window.open('https://drive.google.com/file/d/1oQTJAIJr8HcoY_ZZSJf4V-BcGVaWnz4p/view?usp=drive_link', '_blank');
+  isMenuOpen.value = false; // Close menu after action
+};
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
 };
 
 const updateTime = () => {
@@ -46,6 +54,7 @@ onUnmounted(() => {
 });
 </script>
 
+
 <template>
   <nav class="nav-bar">
     <div class="nav-logo" @click="navigateToHome">
@@ -54,7 +63,15 @@ onUnmounted(() => {
       </a>
     </div>
     
-    <div class="nav-menu">
+    <!-- Hamburger Button (only visible below 1080px) -->
+    <button class="hamburger-menu" @click="toggleMenu" :class="{ active: isMenuOpen }">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    
+    <!-- Desktop Menu -->
+    <div class="nav-menu desktop-menu">
       <button
         v-for="section in sections"
         :key="section.id"
@@ -78,9 +95,46 @@ onUnmounted(() => {
       </button>
     </div>
     
-    <div class="nav-time">{{ formatTime(currentTime) }}</div>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" :class="{ active: isMenuOpen }" @click="isMenuOpen = false">
+      <div class="mobile-menu" @click.stop>
+        <div class="mobile-menu-header">
+          <span class="mobile-menu-title">ROCKERSPACE</span>
+          <!-- <button class="close-menu" @click="isMenuOpen = false">✕</button> -->
+        </div>
+        
+        <div class="mobile-menu-items">
+          <button
+            v-for="section in sections"
+            :key="section.id"
+            @click="navigateToSection(section.id)"
+            :class="[
+              'mobile-nav-item',
+              { 'active': activeSection === section.id }
+            ]"
+          >
+            {{ section.name }}
+          </button>
+          
+          <button
+            @click="downloadResume"
+            class="mobile-nav-item resume-mobile"
+          >
+            <span class="resume-icon">📄</span>
+            RESUME
+          </button>
+        </div>
+        
+        <div class="mobile-menu-footer">
+          <div class="nav-time mobile-time">{{ formatTime(currentTime) }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="nav-time desktop-time">{{ formatTime(currentTime) }}</div>
   </nav>
 </template>
+
 
 <style scoped>
 .nav-logo {

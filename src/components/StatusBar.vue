@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const currentTime = ref(new Date());
+const windowWidth = ref(window.innerWidth); // Add this
 const portfolioStats = ref({
   liveProjects: 4,
   totalViews: 0,
@@ -14,6 +15,11 @@ const portfolioStats = ref({
 const scrollProgress = ref(0);
 const systemStatus = ref('ONLINE');
 const sessionStartTime = ref(new Date());
+
+// Add window resize handler
+const updateWindowWidth = () => {
+  windowWidth.value = window.innerWidth;
+};
 
 // Real analytics functions
 const getStoredStats = () => {
@@ -150,6 +156,9 @@ onMounted(() => {
       sessionStartTime.value = new Date();
     }
   });
+
+  window.addEventListener('resize', updateWindowWidth);
+
 });
 
 onUnmounted(() => {
@@ -173,22 +182,22 @@ onUnmounted(() => {
         <span>{{ systemStatus }}</span>
       </div>
       
-      <div class="status-item">
+      <div class="status-item" v-if="windowWidth >= 600">
         <span class="status-label">LIVE PROJECTS:</span>
         <span class="status-value">{{ portfolioStats.liveProjects }}</span>
       </div>
       
       <div class="status-item">
-        <span class="status-label">TOTAL VIEWS:</span>
+        <span class="status-label">VIEWS:</span>
         <span class="status-value">{{ portfolioStats.totalViews.toLocaleString() }}</span>
       </div>
       
-      <div class="status-item">
-        <span class="status-label">ACTIVE USERS:</span>
+      <div class="status-item" v-if="windowWidth >= 900">
+        <span class="status-label">USERS:</span>
         <span class="status-value">{{ portfolioStats.currentVisitors }}</span>
         <div class="visitor-indicator">
           <div 
-            v-for="i in Math.min(portfolioStats.currentVisitors, 5)" 
+            v-for="i in Math.min(portfolioStats.currentVisitors, 3)" 
             :key="i"
             class="visitor-dot"
             :style="{ animationDelay: (i * 0.2) + 's' }"
@@ -196,7 +205,7 @@ onUnmounted(() => {
         </div>
       </div>
       
-      <div class="status-item">
+      <div class="status-item" v-if="windowWidth >= 768">
         <span class="status-label">SESSION:</span>
         <span class="status-value">{{ formatDuration(portfolioStats.sessionDuration) }}</span>
       </div>
@@ -215,12 +224,12 @@ onUnmounted(() => {
     
     <!-- Right Section -->
     <div class="status-right">
-      <div class="status-item">
+      <div class="status-item" v-if="windowWidth >= 1000">
         <span class="status-label">UPTIME:</span>
         <span class="status-value">{{ portfolioStats.systemUptime }}d</span>
       </div>
       
-      <div class="status-item">
+      <div class="status-item" v-if="windowWidth >= 768">
         <span class="status-label">{{ formatDate(currentTime) }}</span>
       </div>
       
@@ -228,11 +237,11 @@ onUnmounted(() => {
         <span class="status-value">{{ formatTime(currentTime) }}</span>
       </div>
       
-      <div class="status-item">
+      <div class="status-item" v-if="windowWidth >= 900">
         <span class="status-label">IST</span>
       </div>
       
-      <div class="status-item">
+      <div class="status-item" v-if="windowWidth >= 1200">
         <span class="status-label">IIT JODHPUR</span>
       </div>
     </div>
@@ -245,7 +254,7 @@ onUnmounted(() => {
   bottom: 0;
   left: 0;
   right: 0;
-  height: var(--status-height);
+  height: clamp(40px, 6vh, 60px);
   background: 
     linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 15, 0, 0.95) 50%, rgba(0, 0, 0, 0.95) 100%);
   border-top: 3px solid var(--primary-green);
@@ -253,9 +262,9 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--spacing-xl);
+  padding: 0 clamp(8px, 2vw, 24px);
   font-family: var(--font-primary);
-  font-size: 12px;
+  font-size: clamp(10px, 1.5vw, 12px);
   backdrop-filter: blur(20px) saturate(180%);
   z-index: var(--z-status);
   box-shadow: 
@@ -297,21 +306,24 @@ onUnmounted(() => {
 .status-left, .status-right {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xl);
+  gap: clamp(4px, 1.5vw, 16px);
   z-index: 1;
+  flex-wrap: wrap;
 }
 
 .status-item {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--spacing-xs);
+  gap: clamp(2px, 0.5vw, 8px);
+  padding: clamp(2px, 0.5vw, 6px) clamp(4px, 1vw, 12px);
+  border-radius: 4px;
   background: rgba(0, 255, 0, 0.05);
   border: 1px solid rgba(0, 255, 0, 0.2);
-  transition: all var(--transition-speed) ease;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  white-space: nowrap;
+  min-width: fit-content;
 }
 
 .status-item::before {
@@ -337,8 +349,8 @@ onUnmounted(() => {
 }
 
 .status-light {
-  width: 10px;
-  height: 10px;
+  width: clamp(6px, 1.2vw, 10px);
+  height: clamp(6px, 1.2vw, 10px);
   border-radius: 50%;
   position: relative;
   box-shadow: 0 0 10px currentColor;
@@ -364,27 +376,27 @@ onUnmounted(() => {
 }
 
 .status-label {
-  font-size: 10px;
+  font-size: clamp(8px, 1.2vw, 10px);
   color: var(--accent-cyan);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .status-value {
-  font-size: 12px;
+  font-size: clamp(9px, 1.3vw, 12px);
   font-weight: 600;
   color: var(--primary-green);
 }
 
 .visitor-indicator {
   display: flex;
-  gap: 2px;
+  gap: 1px;
 }
 
 .visitor-dot {
-  width: 6px;
-  height: 6px;
+  width: clamp(4px, 0.8vw, 6px);
+  height: clamp(4px, 0.8vw, 6px);
   background: var(--primary-green);
   border-radius: 50%;
   animation: visitor-pulse 2s ease-in-out infinite;
@@ -392,8 +404,8 @@ onUnmounted(() => {
 }
 
 .scroll-indicator {
-  width: 20px;
-  height: 16px;
+  width: clamp(14px, 2.5vw, 20px);
+  height: clamp(12px, 2vw, 16px);
   background: rgba(0, 255, 0, 0.1);
   border: 1px solid rgba(0, 255, 0, 0.3);
   border-radius: 2px;
@@ -431,51 +443,70 @@ onUnmounted(() => {
   50% { opacity: 1; }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
   .status-left, .status-right {
-    gap: var(--spacing-md);
+    gap: clamp(3px, 1vw, 12px);
   }
-  
+}
+
+@media (max-width: 900px) {
   .system-status-bar {
-    padding: 0 var(--spacing-md);
-    font-size: 10px;
+    padding: 0 clamp(6px, 1.5vw, 16px);
   }
   
   .status-item {
-    padding: var(--spacing-xs);
-    gap: var(--spacing-xs);
+    padding: clamp(2px, 0.3vw, 4px) clamp(3px, 0.8vw, 8px);
+    gap: clamp(2px, 0.3vw, 4px);
+  }
+}
+
+@media (max-width: 600px) {
+  .system-status-bar {
+    height: clamp(35px, 8vh, 50px);
+    padding: 0 clamp(4px, 1vw, 12px);
   }
   
-  .status-label {
-    font-size: 9px;
+  .status-left, .status-right {
+    gap: clamp(2px, 0.8vw, 8px);
   }
   
-  .status-value {
-    font-size: 10px;
+  .status-item {
+    padding: 2px 6px;
+    gap: 2px;
   }
   
-  .scroll-indicator {
-    width: 16px;
-    height: 12px;
+  .status-label, .status-value {
+    font-size: clamp(8px, 2vw, 10px);
   }
 }
 
 @media (max-width: 480px) {
-  .status-left, .status-right {
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-  }
   
-  .system-status-bar {
-    height: auto;
-    min-height: var(--status-height);
-    padding: var(--spacing-sm);
+}
+
+@media (max-width: 400px) {
+    /* .system-status-bar {
+      flex-direction: column;
+      height: auto;
+      min-height: 60px;
+      justify-content: center;
+      gap: 4px;
+      padding: 6px;
+    }
+  
+  .status-left, .status-right {
+    justify-content: center;
+    width: 100%;
+    gap: 4px;
   }
   
   .status-item {
-    min-width: 60px;
+    flex: 1;
+    min-width: 50px;
     justify-content: center;
-  }
+    text-align: center;
+  } */
 }
 </style>
+
