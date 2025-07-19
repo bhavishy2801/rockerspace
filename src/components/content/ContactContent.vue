@@ -199,14 +199,13 @@ const handleSubmit = async () => {
 }
 
 .channels-list {
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   gap: 16px;
 }
 
 .channel-item {
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 16px;
   padding: 16px;
@@ -431,5 +430,18 @@ input, textarea {
   .info-grid {
     grid-template-columns: 1fr;
   }
+}
+@media (max-width: 490px) {
+  .channels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.channel-item {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
 }
 </style>
