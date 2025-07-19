@@ -49,7 +49,9 @@ onUnmounted(() => {
 <template>
   <nav class="nav-bar">
     <div class="nav-logo" @click="navigateToHome">
-      ROCKERSPACE
+      <a href="https://rockerspace.vercel.app/">
+        ROCKERSPACE
+      </a>
     </div>
     
     <div class="nav-menu">
@@ -82,7 +84,6 @@ onUnmounted(() => {
 
 <style scoped>
 .nav-logo {
-  cursor: pointer;
   transition: all 0.3s ease;
 }
 

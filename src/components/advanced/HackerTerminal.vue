@@ -1198,6 +1198,9 @@ onMounted(() => {
   padding: 8px 0;
   border-top: 1px solid rgba(0, 255, 0, 0.1);
 }
+input {
+  cursor: url('../../assets/files/textCursor.svg') 15 15, move !important;
+}
 
 .terminal-prompt {
   color: var(--accent-cyan);

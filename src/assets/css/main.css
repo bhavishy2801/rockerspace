@@ -71,6 +71,14 @@
   --z-boot: 10000;
 }
 
+html, body {
+  cursor: url('../files/arrowPoint.svg') 15 15, move;
+}
+
+a[href], input[type='submit'], input[type='checkbox'], input[type='image'], label[for], select, button, .nav-logo {
+  cursor: url('../files/arrowClick.svg') 15 15, move !important;
+}
+
 /* --- ADVANCED BASE STYLES --- */
 @layer base {
   * {
@@ -543,7 +551,7 @@
     border-color: var(--primary-green);
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.9), 0 0 100px rgba(0, 255, 0, 0.2),
       inset 0 1px 0 rgba(0, 255, 0, 0.2);
-    transform: translateY(-2px) rotateX(2deg);
+    transform: translateY(-2px) rotateX(1deg);
   }
 
   .content-block:hover::after {
