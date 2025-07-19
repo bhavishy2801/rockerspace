@@ -4,17 +4,52 @@ import { ref, onMounted, onUnmounted } from 'vue';
 const currentTime = ref(new Date());
 const portfolioStats = ref({
   liveProjects: 4,
-  visitors: 12,
-  performance: 95
+  totalViews: 0,
+  sessionDuration: 0,
+  currentVisitors: 1, // Current user
+  lastUpdate: new Date(),
+  systemUptime: 0
 });
 
 const scrollProgress = ref(0);
 const systemStatus = ref('ONLINE');
+const sessionStartTime = ref(new Date());
 
-const updateStats = () => {
-  // Simple realistic updates
-  portfolioStats.value.visitors = Math.floor(Math.random() * 20) + 5;
-  portfolioStats.value.performance = Math.floor(Math.random() * 10) + 90;
+// Real analytics functions
+const getStoredStats = () => {
+  const stored = localStorage.getItem('portfolio-stats');
+  if (stored) {
+    const stats = JSON.parse(stored);
+    return {
+      totalViews: stats.totalViews || 0,
+      lastVisit: stats.lastVisit ? new Date(stats.lastVisit) : new Date()
+    };
+  }
+  return { totalViews: 0, lastVisit: new Date() };
+};
+
+const updateStoredStats = () => {
+  const stored = getStoredStats();
+  const newStats = {
+    totalViews: stored.totalViews + 1,
+    lastVisit: new Date().toISOString()
+  };
+  localStorage.setItem('portfolio-stats', JSON.stringify(newStats));
+  portfolioStats.value.totalViews = newStats.totalViews;
+};
+
+const calculateSessionDuration = () => {
+  const now = new Date();
+  const duration = Math.floor((now - sessionStartTime.value) / 1000);
+  portfolioStats.value.sessionDuration = duration;
+};
+
+const calculateUptime = () => {
+  // Portfolio "uptime" since deployment (you can adjust this date)
+  const deploymentDate = new Date('2025-07-15'); // Adjust to your actual deployment date
+  const now = new Date();
+  const uptimeMs = now - deploymentDate;
+  portfolioStats.value.systemUptime = Math.floor(uptimeMs / (1000 * 60 * 60 * 24)); // Days
 };
 
 const updateScrollProgress = () => {
@@ -32,38 +67,95 @@ const formatTime = (date) => {
   return date.toLocaleTimeString('en-US', { 
     hour12: false,
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
+    second: '2-digit'
   });
 };
 
 const formatDate = (date) => {
   return date.toLocaleDateString('en-US', {
     month: 'short',
-    day: 'numeric'
+    day: 'numeric',
+    year: 'numeric'
   });
+};
+
+const formatDuration = (seconds) => {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+  
+  if (hours > 0) {
+    return `${hours}h ${minutes}m`;
+  } else if (minutes > 0) {
+    return `${minutes}m ${secs}s`;
+  } else {
+    return `${secs}s`;
+  }
+};
+
+// Real-time visitor simulation (you can integrate with Google Analytics API)
+const simulateRealTimeVisitors = () => {
+  // Simulate 1-8 concurrent visitors based on time of day
+  const hour = new Date().getHours();
+  let baseVisitors = 1;
+  
+  // More visitors during business hours
+  if (hour >= 9 && hour <= 17) {
+    baseVisitors = Math.floor(Math.random() * 5) + 2;
+  } else if (hour >= 18 && hour <= 22) {
+    baseVisitors = Math.floor(Math.random() * 3) + 1;
+  }
+  
+  portfolioStats.value.currentVisitors = baseVisitors;
 };
 
 let timeInterval;
 let statsInterval;
+let durationInterval;
 
 onMounted(() => {
+  // Initialize stats
+  const stored = getStoredStats();
+  portfolioStats.value.totalViews = stored.totalViews;
+  updateStoredStats(); // Increment view count
+  calculateUptime();
+  
+  // Set up intervals
   timeInterval = setInterval(() => {
     currentTime.value = new Date();
   }, 1000);
   
-  statsInterval = setInterval(updateStats, 3000);
-  updateStats();
+  durationInterval = setInterval(() => {
+    calculateSessionDuration();
+  }, 1000);
   
+  statsInterval = setInterval(() => {
+    simulateRealTimeVisitors();
+    calculateUptime();
+  }, 5000);
+  
+  simulateRealTimeVisitors();
+  
+  // Scroll progress
   const mainContent = document.querySelector('.main-content');
   if (mainContent) {
     mainContent.addEventListener('scroll', updateScrollProgress);
     updateScrollProgress();
   }
+  
+  // Page visibility API to track when user leaves/returns
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      sessionStartTime.value = new Date();
+    }
+  });
 });
 
 onUnmounted(() => {
   if (timeInterval) clearInterval(timeInterval);
   if (statsInterval) clearInterval(statsInterval);
+  if (durationInterval) clearInterval(durationInterval);
   
   const mainContent = document.querySelector('.main-content');
   if (mainContent) {
@@ -82,26 +174,31 @@ onUnmounted(() => {
       </div>
       
       <div class="status-item">
-        <span class="status-label">PROJECTS:</span>
+        <span class="status-label">LIVE PROJECTS:</span>
         <span class="status-value">{{ portfolioStats.liveProjects }}</span>
       </div>
       
       <div class="status-item">
-        <span class="status-label">VISITORS:</span>
-        <span class="status-value">{{ portfolioStats.visitors }}</span>
+        <span class="status-label">TOTAL VIEWS:</span>
+        <span class="status-value">{{ portfolioStats.totalViews.toLocaleString() }}</span>
       </div>
       
       <div class="status-item">
-        <span class="status-label">PERFORMANCE:</span>
-        <span class="status-value">{{ portfolioStats.performance }}%</span>
-        <div class="status-graph">
+        <span class="status-label">ACTIVE USERS:</span>
+        <span class="status-value">{{ portfolioStats.currentVisitors }}</span>
+        <div class="visitor-indicator">
           <div 
-            v-for="i in 5" 
+            v-for="i in Math.min(portfolioStats.currentVisitors, 5)" 
             :key="i"
-            class="status-graph-bar"
-            :style="{ height: Math.random() * 100 + '%' }"
+            class="visitor-dot"
+            :style="{ animationDelay: (i * 0.2) + 's' }"
           ></div>
         </div>
+      </div>
+      
+      <div class="status-item">
+        <span class="status-label">SESSION:</span>
+        <span class="status-value">{{ formatDuration(portfolioStats.sessionDuration) }}</span>
       </div>
       
       <div class="status-item">
@@ -118,6 +215,11 @@ onUnmounted(() => {
     
     <!-- Right Section -->
     <div class="status-right">
+      <div class="status-item">
+        <span class="status-label">UPTIME:</span>
+        <span class="status-value">{{ portfolioStats.systemUptime }}d</span>
+      </div>
+      
       <div class="status-item">
         <span class="status-label">{{ formatDate(currentTime) }}</span>
       </div>
@@ -275,34 +377,18 @@ onUnmounted(() => {
   color: var(--primary-green);
 }
 
-.status-graph {
-  width: 40px;
-  height: 16px;
-  background: rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
-  border-radius: 3px;
-  padding: 2px;
+.visitor-indicator {
   display: flex;
-  align-items: end;
-  gap: 1px;
-  overflow: hidden;
+  gap: 2px;
 }
 
-.status-graph-bar {
-  flex: 1;
-  background: linear-gradient(180deg, var(--primary-green) 0%, var(--accent-cyan) 100%);
+.visitor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--primary-green);
+  border-radius: 50%;
+  animation: visitor-pulse 2s ease-in-out infinite;
   box-shadow: 0 0 5px var(--primary-green);
-  border-radius: 1px;
-  animation: data-pulse 2s infinite;
-  transition: all var(--transition-speed) ease;
-}
-
-.status-graph-bar:nth-child(even) {
-  animation-delay: 0.3s;
-}
-
-.status-graph-bar:nth-child(3n) {
-  animation-delay: 0.6s;
 }
 
 .scroll-indicator {
@@ -330,9 +416,9 @@ onUnmounted(() => {
   50% { opacity: 1; }
 }
 
-@keyframes data-pulse {
-  0%, 100% { height: 40%; }
-  50% { height: 90%; }
+@keyframes visitor-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
 @keyframes data-stream {
@@ -369,11 +455,6 @@ onUnmounted(() => {
     font-size: 10px;
   }
   
-  .status-graph {
-    width: 30px;
-    height: 12px;
-  }
-  
   .scroll-indicator {
     width: 16px;
     height: 12px;
@@ -382,12 +463,13 @@ onUnmounted(() => {
 
 @media (max-width: 480px) {
   .status-left, .status-right {
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: var(--spacing-sm);
   }
   
   .system-status-bar {
-    height: 60px;
+    height: auto;
+    min-height: var(--status-height);
     padding: var(--spacing-sm);
   }
   
