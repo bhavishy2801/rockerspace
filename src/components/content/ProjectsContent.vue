@@ -210,7 +210,7 @@ const closeProject = () => {
   border: 1px solid rgba(0, 255, 0, 0.3);
   border-radius: 12px;
   padding: 24px;
-  cursor: pointer;
+  cursor: url('../../assets/files/arrowClick.svg') 15 15, move !important;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;

@@ -282,6 +282,10 @@ const handleSubmit = async () => {
   gap: 20px;
 }
 
+input, textarea {
+  cursor: url('../../assets/files/textCursor.svg') 15 15, move !important;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;

@@ -1305,10 +1305,10 @@ input {
   border-radius: 12px;
   padding: 24px;
   text-align: center;
-  cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  cursor: url('../../assets/files/arrowClick.svg') 15 15, move !important;
 }
 
 .restore-terminal::before {

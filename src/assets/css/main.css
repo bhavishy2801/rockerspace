@@ -72,7 +72,7 @@
 }
 
 html, body {
-  cursor: url('../files/arrowPoint.svg') 15 15, move;
+  cursor: url('../files/arrowPoint.svg') 15 15, none;
 }
 
 a[href], input[type='submit'], input[type='checkbox'], input[type='image'], label[for], select, button, .nav-logo {
@@ -742,6 +742,7 @@ a[href], input[type='submit'], input[type='checkbox'], input[type='image'], labe
     border-top: 3px solid var(--primary-green);
     color: var(--primary-green);
     display: flex;
+    cursor: url('../files/arrowPoint.svg') 15 15, none;
     align-items: center;
     justify-content: space-between;
     padding: 0 var(--spacing-xl);
