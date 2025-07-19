@@ -408,7 +408,7 @@ a[href], input[type='submit'], input[type='checkbox'], input[type='image'], labe
   /* --- Enhanced Main Content Area --- */
   .main-content {
     flex: 1;
-    margin-top: var(--nav-height);
+    /* margin-top: var(--nav-height); */
     margin-bottom: var(--status-height);
     padding: var(--content-padding);
     overflow-y: auto;
