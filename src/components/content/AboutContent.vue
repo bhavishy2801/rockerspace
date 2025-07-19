@@ -350,14 +350,14 @@
             <div class="achievement-content">
               <h4>Mathematics Geek</h4>
               <p>Qualified RMO</p>
-              <p>NMTC Stage-II QUALIFIED {TWICE IN A ROW}<br>AIR-9 [2023]<br>AIR-9 [2024]</p>
+              <p>NMTC Stage-II QUALIFIED {TWICE IN A ROW}<br>AIR-7 [2023]<br>AIR-9 [2024]</p>
             </div>
           </div>
           <div class="achievement-item">
             <div class="achievement-icon">⚡</div>
             <div class="achievement-content">
               <h4>Performance Optimization</h4>
-              <p>90+ Lighthouse Scores</p>
+              <p>98+ Lighthouse Score</p>
             </div>
           </div>
         </div>
