@@ -21,6 +21,9 @@ const fadeOut       = ref(false);
 
 /* ───── LIFE-CYCLE ───────────────────────────────────────── */
 onMounted(async () => {
+  // Ensure font is loaded before starting animation
+  await loadFont();
+  
   // initialise letters
   letters.value = TEXT.split('').map((c, i) => ({ char: c, shown: false, filled: false, i }));
 
@@ -58,6 +61,23 @@ onMounted(async () => {
 
 /* helpers */
 function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function loadFont() {
+  try {
+    // Check if font loading API is available
+    if ('fonts' in document) {
+      // Wait for the font to load
+      await document.fonts.load("normal 400 16px 'FODECUMBERS THICK HOLOW'");
+      console.log('Font loaded successfully');
+    } else {
+      // Fallback for older browsers
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  } catch (error) {
+    console.warn('Font loading failed:', error);
+    // Continue anyway - will fallback to sans-serif
+  }
+}
 </script>
 
 <template>
@@ -70,7 +90,6 @@ function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
       <h1
         class="main-title"
         :class="{ filled: titleFilled, active: bootDone }"
-        style="font-family: 'FODECUMBERS THICK HOLOW', sans-serif"
       >
         <span
           v-for="l in letters"
@@ -95,6 +114,17 @@ function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 </template>
 
 <style scoped>
+/* ───── FONT LOADING ────────────────────────────────────── */
+@font-face {
+  font-family: "FODECUMBERS THICK HOLOW";
+  src: url("../assets/fonts/FODECUMBERS_THICK_HOLOW.woff2") format("woff2"),
+       url("../assets/fonts/FODECUMBERS_THICK_HOLOW.woff") format("woff"),
+       url("../assets/fonts/FODECUMBERS_THICK_HOLOW.eot") format("embedded-opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ───── LAYOUT ───────────────────────────────────────────── */
 .boot-screen {
   position: fixed;
@@ -145,6 +175,7 @@ function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  scale: 1.3;
 }
 .title-wrap.show { animation: title-wrap-in .6s cubic-bezier(.25,.8,.35,1) forwards; }
 
@@ -161,6 +192,10 @@ function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
   width: fit-content;
   line-height: 1;
   display: block;
+  
+  /* Updated font stack with better fallbacks */
+  font-family: "FODECUMBERS THICK HOLOW", "Impact", "Arial Black", "Helvetica Neue", sans-serif;
+  font-weight: 900;
 }
 
 /* subtle brightness increase when active */
