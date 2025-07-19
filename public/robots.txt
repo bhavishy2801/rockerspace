@@ -1,0 +1,126 @@
+# robots.txt for Portfolio Website - ROCKERSPACE
+# Website: https://rockerspace.vercel.app
+# Last updated: 2025
+
+# Allow all search engines to crawl the main content
+User-agent: *
+Allow: /
+
+# Allow specific crawling of important sections
+Allow: /about
+Allow: /projects
+Allow: /skills
+Allow: /contact
+Allow: /experience
+Allow: /blog
+Allow: /portfolio
+
+# Allow crawling of assets for better indexing
+Allow: /assets/
+Allow: /images/
+Allow: /css/
+Allow: /js/
+
+# Block crawling of sensitive or unnecessary files
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /cache/
+Disallow: /logs/
+Disallow: /.env
+Disallow: /config/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /build/
+Disallow: /dist/
+
+# Block crawling of development and testing files
+Disallow: /test/
+Disallow: /tests/
+Disallow: /dev/
+Disallow: /staging/
+Disallow: /*.json$
+Disallow: /*.yml$
+Disallow: /*.yaml$
+Disallow: /*.md$
+Disallow: /package.json
+Disallow: /yarn.lock
+Disallow: /package-lock.json
+
+# Block crawling of duplicate or low-value pages
+Disallow: /search
+Disallow: /404
+Disallow: /error
+Disallow: /*?print=*
+Disallow: /*?share=*
+Disallow: /*?utm_*
+
+# Block crawling of dynamic parameters that don't add value
+Disallow: /*?page=
+Disallow: /*?sort=
+Disallow: /*?filter=
+
+# Allow Google to crawl everything
+User-agent: Googlebot
+Allow: /
+
+# Allow Bing to crawl everything
+User-agent: Bingbot
+Allow: /
+
+# Allow social media crawlers for better sharing
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Block known bad bots and scrapers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+# Block aggressive crawlers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+# Crawl delay for polite crawling (in seconds)
+Crawl-delay: 1
+
+# Sitemap location (update with your actual domain)
+Sitemap: https://rockerspace.vercel.app/sitemap.xml
+Sitemap: https://rockerspace.vercel.app/sitemap-images.xml
+
+# Additional sitemaps if you have them
+# Sitemap: https://rockerspace.vercel.app/sitemap-blog.xml
+# Sitemap: https://rockerspace.vercel.app/sitemap-projects.xml
