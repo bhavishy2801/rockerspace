@@ -231,6 +231,7 @@ async function loadFont() {
   text-stroke: clamp(0.5px, 0.3vw, 2px) rgba(0,255,0,.8);
 }
 
+
 /* ───── UNDERLINE EFFECT ────────────────────────────────── */
 .underline-effect {
   width: 0;
@@ -402,5 +403,47 @@ async function loadFont() {
     font-size: clamp(120px, 8vw, 200px);
     letter-spacing: clamp(10px, 1vw, 20px);
   }
+}
+
+/* ---------- 1. Global colour variables ---------- */
+:root {
+  /* new variable so you can tune the stroke once, everywhere */
+  --matrix-green: #00ff00;
+  --stroke-width: clamp(0.15px, 0.10vw, 0.9px);   /* was 0.3-1.6px */
+}
+
+/* ---------- 2. Main title (before fill) ---------- */
+.letter {
+  -webkit-text-stroke: var(--stroke-width) rgba(0,255,0,.50);
+          text-stroke: var(--stroke-width) rgba(0,255,0,.50);
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.847);
+}
+
+/* after fill-in */
+.letter.filled {
+  color: rgba(0,255,0,.78);                           /* slightly lighter-weight fill */
+  -webkit-text-stroke: var(--stroke-width) rgb(0, 255, 0);
+          text-stroke: var(--stroke-width) rgb(0, 255, 0);
+  text-shadow:
+    0 0 2px rgba(0,255,0,.18),
+    0 0 4px rgba(0,255,0,.10);
+}
+
+/* 3) Underline – softer edge & lighter bloom */
+.underline-effect {
+  background: linear-gradient(
+    90deg,
+    transparent 0,
+    rgba(0, 255, 0, .35) 40%,
+    rgba(0, 255, 0, .35) 60%,
+    transparent 100%
+  );
+  box-shadow: 0 0 3px rgba(0, 255, 0, .28);
+}
+
+/* 4) Optional global brightness tweak */
+.main-title.filled,
+.main-title.active {
+  filter: brightness(1.03);  /* was 1.05 → softer overall */
 }
 </style>
