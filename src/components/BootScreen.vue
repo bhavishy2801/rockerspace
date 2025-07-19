@@ -70,7 +70,7 @@ function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
       <h1
         class="main-title"
         :class="{ filled: titleFilled, active: bootDone }"
-        style="font-family: 'FODECUMBERS THICK HOLOW', monospace"
+        style="font-family: 'FODECUMBERS THICK HOLOW', sans-serif"
       >
         <span
           v-for="l in letters"
