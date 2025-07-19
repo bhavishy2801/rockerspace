@@ -107,8 +107,8 @@ const getStatusColor = (status) => {
 
 const getTrendingIcon = (trend) => {
   switch (trend) {
-    case 'up': return '↗️';
-    case 'down': return '↘️';
+    case 'up': return '↗';
+    case 'down': return '↘';
     case 'stable': return '→';
     default: return '→';
   }
@@ -448,6 +448,11 @@ onUnmounted(() => {
   border: 1px solid rgba(0, 255, 0, 0.2);
   border-radius: 6px;
   padding: 12px;
+  transition: all 0.3s ease;
+}
+.project-card:hover {
+    box-shadow: rgba(0, 255, 0, 0.3) 0px 0px 15px;
+    border-color: var(--primary-green);
 }
 
 .project-header {
@@ -505,7 +510,13 @@ onUnmounted(() => {
   padding: 8px 12px;
   background: rgba(0, 255, 0, 0.03);
   border-radius: 6px;
+  transition: all 0.3s ease;
 }
+.skill-row:hover {
+    box-shadow: rgba(0, 255, 0, 0.5) 0px 0px 15px;
+    border-color: var(--primary-green);
+}
+
 
 .skill-info {
   flex: 1;
@@ -568,6 +579,11 @@ onUnmounted(() => {
   border: 1px solid rgba(0, 255, 0, 0.2);
   border-radius: 4px;
   padding: 8px;
+  transition: all 0.3s ease;
+}
+.tech-item:hover {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
 }
 
 .tech-header {
@@ -653,7 +669,13 @@ onUnmounted(() => {
   background: rgba(0, 255, 0, 0.03);
   border-radius: 4px;
   font-size: 12px;
+  transition: all 0.3s ease;
 }
+.academic-row:hover {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
 
 .academic-label {
   color: var(--accent-cyan);

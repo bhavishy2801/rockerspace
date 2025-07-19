@@ -907,7 +907,15 @@
   border-radius: 6px;
   font-size: 13px;
   color: var(--primary-green);
+  transition: all 0.3s ease;
 }
+.goal-item:hover {
+  background: rgba(0, 255, 0, 0.05);
+  border-color: var(--primary-green);
+  box-shadow: 0 0 25px rgba(0, 255, 0, 0.2);
+  transform: translateY(-2px);
+}
+
 
 .goal-icon {
   color: var(--accent-cyan);
