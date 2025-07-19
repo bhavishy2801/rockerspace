@@ -135,7 +135,7 @@ const overallStats = computed(() => {
 </script>
 
 <template>
-  <div class="content-block">
+  <div class="content-block skills">
     <h1>> decode_skills.sh</h1>
     
     <!-- Overall Stats -->
@@ -638,6 +638,72 @@ const overallStats = computed(() => {
   .legend-items {
     flex-direction: column;
     gap: 12px;
+  }
+
+  .category-header {
+  display: flex;
+  flex-direction: column;
+}
+}
+@media (max-width: 503px) {
+  .category-header h3 {
+    align-items: center;
+    font-size: 95%;
+  }
+}
+
+@media (max-width: 453px) {
+  .category-header h3 {
+    align-items: center;
+    font-size: 85%;
+  }
+}
+@media (max-width: 425px) {
+  .category-header h3 {
+    align-items: center;
+    font-size: 75%;
+  }
+}
+@media (max-width: 397px) {
+  .category-header h3 {
+    align-items: center;
+    font-size: 70%;
+  }
+}
+@media (max-width: 384px) {
+  .category-header h3 {
+    align-items: center;
+    font-size: 65%;
+  }
+}
+@media (max-width: 369px) {
+  .category-header h3 {
+    align-items: center;
+    font-size: 60%;
+  }
+}
+@media (max-width: 355px) {
+  .category-header h3 {
+    align-items: center;
+    font-size: 55%;
+  }
+}
+@media (max-width: 341px) {
+  .category-header h3 {
+    align-items: center;
+    font-size: 50%;
+  }
+}
+@media (max-width: 327px) {
+  .category-header h3 {
+    align-items: center;
+    font-size: 45%;
+  }
+}
+@media (max-width: 313px) {
+  .category-header h3 {
+    align-items: center;
+    font-size: 40%;
   }
 }
 </style>

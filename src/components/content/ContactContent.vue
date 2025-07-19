@@ -68,7 +68,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="content-block">
+  <div class="content-block contactheading">
     <h1>> ./init_handshake.sh</h1>
     
     <div class="communication-grid">
@@ -193,8 +193,9 @@ const handleSubmit = async () => {
 .channels-section, .form-section {
   background: rgba(0, 255, 0, 0.02);
   border: 1px solid rgba(0, 255, 0, 0.2);
+  /* padding: 24px; */
   border-radius: 12px;
-  padding: 24px;
+  max-width: 80vw;
 }
 
 .channels-list {
@@ -205,6 +206,7 @@ const handleSubmit = async () => {
 
 .channel-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 16px;
   padding: 16px;

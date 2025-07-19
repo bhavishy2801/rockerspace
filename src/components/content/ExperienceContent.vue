@@ -307,8 +307,9 @@ const closeExperience = () => {
 .overview-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  row-gap: 16px;
+  column-gap: 16px;
+  padding: 20px 15px;
   background: rgba(0, 255, 0, 0.02);
   border: 1px solid rgba(0, 255, 0, 0.2);
   border-radius: 12px;
@@ -787,7 +788,7 @@ const closeExperience = () => {
 
 @media (max-width: 768px) {
   .overview-stats {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
   }
   
   .timeline-item {
@@ -814,4 +815,17 @@ const closeExperience = () => {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 400px) {
+  .overview-stats { 
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 393px) {
+  .overview-stats { 
+    grid-template-columns: auto;
+  }
+}
+
 </style>

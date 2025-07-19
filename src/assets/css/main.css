@@ -1336,6 +1336,14 @@ a[href], input[type='submit'], input[type='checkbox'], input[type='image'], labe
   }
 }
 
+@media (max-width: 900px) {
+
+  .content-section {
+    max-width: 105%;
+    padding: var(--spacing-md) 0;
+  }
+}
+
 @media (max-width: 768px) {
   :root {
     --nav-height: 60px;
@@ -2666,10 +2674,93 @@ a[href], input[type='submit'], input[type='checkbox'], input[type='image'], labe
 
 @media (max-width: 480px) {
   .mobile-menu {
-    width: 100vw;
+    width: 70vw;
   }
   
   .nav-logo a {
     font-size: 18px;
+  }
+}
+@media (max-width: 460px) {
+  .content-block.skills h1, .content-block.contactheading h1 {
+    font-size: 150%;
+  }
+  .content-block.contactheading h2 {
+    font-size: 150%;
+  }
+}
+@media (max-width: 428px) {
+  .content-block.contactheading h2 {
+    font-size: 140%;
+  }
+}
+@media (max-width: 425px) {
+  .content-block.skills h1, .content-block.contactheading h1 {
+    font-size: 140%;
+  }
+}
+@media (max-width: 412px) {
+  .content-block.skills h1, .content-block.contactheading h1 {
+    font-size: 130%;
+  }
+}
+@media (max-width: 409px) {
+  .content-block.contactheading h2 {
+    font-size: 130%;
+  }
+}
+@media (max-width: 399px) {
+  .content-block.skills h1, .content-block.contactheading h1 {
+    font-size: 120%;
+  }
+}
+@media (max-width: 393px) {
+  .content-block.contactheading h2 {
+    font-size: 120%;
+  }
+}
+@media (max-width: 385px) {
+  .content-block.skills h1, .content-block.contactheading h1 {
+    font-size: 110%;
+  }
+}
+@media (max-width: 377px) {
+  .content-block.contactheading h2 {
+    font-size: 110%;
+  }
+}
+@media (max-width: 372px) {
+  .content-block.skills h1, .content-block.contactheading h1 {
+    font-size: 100%;
+  }
+}
+@media (max-width: 360px) {
+  .content-block.contactheading h2 {
+    font-size: 100%;
+  }
+}
+@media (max-width: 358px) {
+  .content-block.skills h1, .content-block.contactheading h1 {
+    font-size: 90%;
+  }
+}
+@media (max-width: 345px) {
+  .content-block.skills h1, .content-block.contactheading h1 {
+    font-size: 80%;
+  }
+}
+@media (max-width: 331px) {
+  .content-block.skills h1, .content-block.contactheading h1 {
+    font-size: 70%;
+  }
+}
+@media (max-width: 325px) {
+  .content-block.contactheading h2 {
+    font-size: 90%;
+  }
+}
+@media (max-width: 317px) {
+  .content-block.skills h1, .content-block.contactheading h1 {
+    font-size: 60%;
   }
 }

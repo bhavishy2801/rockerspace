@@ -200,7 +200,7 @@ const closeProject = () => {
 <style scoped>
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 24px;
   margin-top: 20px;
 }
