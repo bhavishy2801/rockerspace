@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 // Real portfolio metrics
 const portfolioMetrics = ref({
-  projectsCompleted: 3,
+  projectsCompleted: 4,
   technologiesUsed: 15,
   codeCommits: 250,
   liveApplications: 4,
