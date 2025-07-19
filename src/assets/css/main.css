@@ -1,7 +1,7 @@
 /* --- ADVANCED FONT & TAILWIND IMPORTS --- */
 /* @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"); */
 
 @font-face {
   font-family: "Cyborg";
@@ -50,7 +50,7 @@
 
   /* Typography */
   --font-primary: "JetBrains Mono", "Courier New", monospace;
-  --font-display: "Orbitron", "Cyborg", monospace;
+  --font-display: "Cyborg", sans-serif;
   --font-body: "Rajdhani", sans-serif;
 
   /* Spacing */
@@ -327,7 +327,7 @@
     text-decoration: none;
     border-radius: var(--spacing-sm);
     transition: all var(--transition-speed) ease;
-    font-family: var(--font-primary);
+    font-family: var(--font-display);
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
@@ -519,14 +519,14 @@
     right: 0;
     width: 6px;
     height: 100%;
-    background: linear-gradient(
+    /* background: linear-gradient(
       180deg,
       transparent 0%,
       var(--primary-green) 20%,
       var(--accent-cyan) 50%,
       var(--neon-pink) 80%,
       transparent 100%
-    );
+    ); */
     animation: data-flow 4s linear infinite;
   }
 
@@ -548,14 +548,14 @@
 
   .content-block:hover::after {
     animation-duration: 2s;
-    background: linear-gradient(
+    /* background: linear-gradient(
       180deg,
       transparent 0%,
       var(--accent-cyan) 20%,
       var(--primary-green) 50%,
       var(--electric-purple) 80%,
       transparent 100%
-    );
+    ); */
   }
 
   /* --- Advanced Typography --- */

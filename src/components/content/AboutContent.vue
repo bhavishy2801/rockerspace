@@ -17,7 +17,7 @@
           </div>
           <div class="info-item">
             <span class="label">AFFILIATION:</span>
-            <span class="value">IIT Jodhpur</span>
+            <span class="value">Sophomore @ IIT Jodhpur</span>
           </div>
           <div class="info-item">
             <span class="label">STATUS:</span>

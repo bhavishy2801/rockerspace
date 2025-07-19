@@ -260,14 +260,14 @@ const commands = {
     '◆ PORTFOLIO TERMINAL COMMANDS ◆',
     '═══════════════════════════════',
     '',
-    '📁 Navigation:',
+    'Navigation:',
     '  help          - Show this help message',
     '  ls [path]     - List directory contents',
     '  cd <path>     - Change directory',
     '  pwd           - Show current directory',
     '  cat <file>    - Display file contents',
     '',
-    '👨‍💻 Portfolio Commands:',
+    'Portfolio Commands:',
     '  about         - Show personal information',
     '  skills        - Display technical skills',
     '  projects      - List all projects',
@@ -276,7 +276,7 @@ const commands = {
     '  contact       - Get contact information',
     '  resume        - Download resume',
     '',
-    '🛠️ System Commands:',
+    'System Commands:',
     '  whoami        - Show current user',
     '  date          - Show current date/time',
     '  uptime        - Show session uptime',
@@ -285,7 +285,7 @@ const commands = {
     '  clear         - Clear terminal',
     '  exit          - Close terminal session',
     '',
-    '⌨️ Keyboard Shortcuts:',
+    'Keyboard Shortcuts:',
     '  ↑/↓ Arrow    - Navigate command history',
     '  Tab          - Auto-complete commands',
     '  Ctrl+C       - Cancel current command',
@@ -293,8 +293,8 @@ const commands = {
   ],
 
   about: () => [
-    '👨‍💻 Bhavishy Agrawal',
-    '🎓 Student at IIT Jodhpur',
+    'Bhavishy Agrawal',
+    'Student at IIT Jodhpur',
     '💻 Full Stack Developer',
     '',
     '🔧 Current Focus:',
@@ -524,7 +524,7 @@ const commands = {
     '    ████████       │ Disk: 1TB NVMe SSD      │',
     '                   ╰─────────────────────────╯',
     '',
-    '📊 Portfolio Stats:',
+    'Portfolio Stats:',
     '  • Projects: 4 live applications',
     // '  • Users: 645+ combined',
     '  • Uptime: 99.75% average',
@@ -532,15 +532,15 @@ const commands = {
   ],
 
   uptime: () => [
-    '⏱️ TERMINAL SESSION INFORMATION',
+    'TERMINAL SESSION INFORMATION',
     '═══════════════════════════════',
     '',
-    `🕐 Session Started: ${sessionInfo.value.startTime.toLocaleString()}`,
-    `⏰ Current Uptime: ${formatUptime(sessionInfo.value.uptime)}`,
-    `📊 Commands Executed: ${sessionInfo.value.commandCount}`,
-    `🖥️ Terminal Status: ${isFullscreen.value ? 'Fullscreen' : 'Windowed'} Mode`,
+    `Session Started: ${sessionInfo.value.startTime.toLocaleString()}`,
+    `Current Uptime: ${formatUptime(sessionInfo.value.uptime)}`,
+    `Commands Executed: ${sessionInfo.value.commandCount}`,
+    `Terminal Status: ${isFullscreen.value ? 'Fullscreen' : 'Windowed'} Mode`,
     '',
-    '🚀 Portfolio System Status:',
+    'Portfolio System Status:',
     '  • All projects: ✅ Online',
     '  • Database: ✅ Connected',
     '  • APIs: ✅ Responding',
@@ -550,15 +550,15 @@ const commands = {
   matrix: () => {
     return new Promise((resolve) => {
       const sequence = [
-        '🔴 ENTERING MATRIX MODE...',
-        '⚡ Reality.exe has stopped working',
-        '🌌 Loading alternative dimension...',
-        '🔮 Quantum tunneling initiated...',
-        '🧠 Neural interface connected...',
-        '💊 Welcome to the real world, Neo.',
-        '🥄 Remember: There is no spoon.',
-        '🔥 You are now in MATRIX TERMINAL MODE.',
-        '🚪 Use "exit" to return to normal reality.'
+        'ENTERING MATRIX MODE...',
+        'Reality.exe has stopped working',
+        'Loading alternative dimension...',
+        'Quantum tunneling initiated...',
+        'Neural interface connected...',
+        'Welcome to the real world, Neo.',
+        'Remember: There is no spoon.',
+        'You are now in MATRIX TERMINAL MODE.',
+        'Use "exit" to return to normal reality.'
       ];
       
       let index = 0;
@@ -575,15 +575,37 @@ const commands = {
   },
 
   exit: () => {
-    closeTerminal();
-    return [
+  return new Promise((resolve) => {
+    const exitSequence = [
       '👋 Goodbye! Terminal session ended.',
       '📊 Session Summary:',
       `  • Duration: ${formatUptime(sessionInfo.value.uptime)}`,
       `  • Commands: ${sessionInfo.value.commandCount}`,
       '🚀 Thanks for exploring my portfolio!'
     ];
-  },
+    
+    let index = 0;
+    const interval = setInterval(() => {
+      output.value.push({ 
+        type: 'info', 
+        text: exitSequence[index],
+        timestamp: new Date().toLocaleTimeString()
+      });
+      index++;
+      
+      if (index >= exitSequence.length) {
+        clearInterval(interval);
+        // Close terminal after showing all messages
+        setTimeout(() => {
+          commands.clear();
+          closeTerminal();
+          resolve();
+        }, 1000);
+      }
+    }, 600);
+  });
+},
+
 
   // ... (other existing commands with same content)
 
@@ -818,8 +840,15 @@ const executeCommand = async (cmd) => {
     });
   }
   
-  input.value = '';
+    input.value = '';
   await nextTick();
+  
+  // Add this focus fix after clearing input
+  const inputElement = document.querySelector('.terminal-input');
+  if (inputElement) {
+    inputElement.focus();
+  }
+  
   if (terminalRef.value) {
     terminalRef.value.scrollTop = terminalRef.value.scrollHeight;
   }
@@ -879,25 +908,25 @@ const terminalHeaderTitle = computed(() => {
 onMounted(() => {
   // Initial welcome messages
   output.value.push({ 
-    type: 'info', 
-    text: '🚀 Welcome to Bhavishy\'s Advanced Portfolio Terminal v2.0' 
+    type: 'welcome', 
+    text: 'Welcome to Rocker OS Terminal v28.01.06' 
   });
   output.value.push({ 
-    type: 'info', 
-    text: '⚡ Quantum computing interface initialized' 
+    type: 'welcome', 
+    text: 'Quantum computing interface initialized' 
   });
   output.value.push({ 
-    type: 'info', 
-    text: '🔐 Neural link established | Security: Maximum' 
+    type: 'welcome', 
+    text: 'Neural link established | Security: Maximum' 
   });
   output.value.push({ type: 'info', text: '' });
   output.value.push({ 
-    type: 'info', 
-    text: '💡 Quick commands: about | skills | projects | contact | help' 
+    type: 'welcome', 
+    text: 'Quick commands: about | skills | projects | contact | help' 
   });
   output.value.push({ 
-    type: 'info', 
-    text: '⌨️ Press Tab for auto-completion | ↑↓ for history' 
+    type: 'welcome', 
+    text: 'Press Tab for auto-completion | ↑↓ for history' 
   });
   
   // Start uptime counter
@@ -1156,6 +1185,9 @@ onMounted(() => {
 
 .terminal-text.info {
   color: var(--accent-cyan);
+}
+.terminal-text.welcome {
+  color: var(--warning-yellow);
 }
 
 .terminal-input-line {
